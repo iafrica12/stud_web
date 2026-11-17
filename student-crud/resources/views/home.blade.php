@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>RecordDesk | JSON CRUD</title>
+
+    <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
+    <script src="{{ asset('assets/app.js') }}" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <a class="brand" href="{{ url('/') }}">
+        <span class="logo">R</span>
+        RecordDesk
+      </a>
+
+      <span class="tag">PHP + JSON</span>
+      <div id="identity"></div>
+
+      <button id="logout" class="secondary" hidden>Log out</button>
+    </header>
+
+    <main>
+      <p id="message" role="status" aria-live="polite"></p>
+
+      <section id="login-panel" class="login card" hidden>
+        <p class="eyebrow">WELCOME BACK</p>
+        <h1>Your work, organized.</h1>
+        <p class="muted">Sign in to manage your records.</p>
+
+        <form id="login-form">
+          <label>
+            Email
+            <input
+              name="email"
+              type="email"
+              autocomplete="username"
+              required
+            >
+          </label>
+
+          <label>
+            Password
+            <input
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+              maxlength="200"
+            >
+          </label>
+
+          <button>Sign in →</button>
+        </form>
+
+        <p class="hint">
+          Demo admin: admin@example.com / Admin123!<br>
+          Demo user: user@example.com / User123!
+        </p>
+      </section>
+
+      <section id="dashboard" hidden>
+        <p class="eyebrow">WORKSPACE</p>
+
+        <div class="heading">
+          <div>
+            <h1 id="greeting">Records</h1>
+            <p class="muted" id="scope"></p>
+          </div>
+
+          <span id="count" class="count"></span>
+        </div>
+
+        <nav>
+          <button id="records-tab">Records</button>
+          <button id="users-tab" class="secondary" hidden>
+            Manage users
+          </button>
+        </nav>
+
+        <section id="records-panel">
+          <div class="toolbar">
+            <input
+              id="search"
+              type="search"
+              aria-label="Search records"
+              placeholder="Search your records…"
+            >
+
+            <button id="add-record">+ New record</button>
+          </div>
+
+          <div class="table-wrap card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Record</th>
+                  <th>Status</th>
+                  <th>Updated</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="records-body"></tbody>
+            </table>
+
+            <p id="empty" class="empty" hidden>
+              No records yet. Create your first record.
+            </p>
+          </div>
+        </section>
+
+        <section id="users-panel" hidden>
+          <div class="toolbar">
+            <h2>Team accounts</h2>
+            <button id="add-user">+ New user</button>
+          </div>
+
+          <div class="table-wrap card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="users-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <dialog id="record-dialog">
+        <form id="record-form">
+          <div class="heading">
+            <h2 id="record-title">New record</h2>
+
+            <button
+              type="button"
+              data-close="record-dialog"
+              class="secondary"
+            >
+              Close
+            </button>
+          </div>
+
+          <p class="dialog-message error" role="alert"></p>
+
+          <input type="hidden" name="id">
+
+          <label>
+            Title
+            <input name="title" required maxlength="120">
+          </label>
+
+          <label>
+            Description
+            <textarea
+              name="description"
+              required
+              maxlength="2000"
+              rows="4"
+            ></textarea>
+          </label>
+
+          <label>
+            Status
+            <select name="status">
+              <option>Pending</option>
+              <option>In progress</option>
+              <option>Completed</option>
+            </select>
+          </label>
+
+          <button>Save record</button>
+        </form>
+      </dialog>
+
+      <dialog id="user-dialog">
+        <form id="user-form">
+          <div class="heading">
+            <h2 id="user-title">New user</h2>
+
+            <button
+              type="button"
+              data-close="user-dialog"
+              class="secondary"
+            >
+              Close
+            </button>
+          </div>
+
+          <p class="dialog-message error" role="alert"></p>
+
+          <input type="hidden" name="id">
+
+          <label>
+            Name
+            <input name="name" required maxlength="120">
+          </label>
+
+          <label>
+            Email
+            <input
+              name="email"
+              type="email"
+              required
+              maxlength="254"
+            >
+          </label>
+
+          <label>
+            Role
+            <select name="role">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </label>
+
+          <label>
+            Password
+            <input
+              name="password"
+              type="password"
+              autocomplete="new-password"
+              minlength="8"
+              maxlength="200"
+            >
+
+            <small>
+              At least 8 characters. Leave blank when editing to keep the
+              password.
+            </small>
+          </label>
+
+          <button>Save account</button>
+        </form>
+      </dialog>
+    </main>
+
+    <footer>
+      RecordDesk · A simple PHP CRUD learning project
+    </footer>
+  </body>
+</html>
